@@ -1,5 +1,4 @@
 from dataclasses import asdict
-# from typing import Optional
 
 import uvicorn
 from fastapi import FastAPI
@@ -16,6 +15,7 @@ def create_app():
     db.init_app(app, **conf_dict)
 
     app.include_router(index.router)
+    # app.include_router(index.router, prefix="/api")
     return app
 
 

@@ -2,7 +2,7 @@ import os
 import cx_Oracle
 import json
 
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from os import path, environ
 
 base_dir = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
@@ -25,7 +25,9 @@ class Config:
     BASE_DIR = base_dir
 
     DB_POOL_RECYCLE: int = 900
-    DB_ECHO: bool = True
+    # DB_ECHO: bool = True
+    DB_ECHO: bool = environ.get("LOGGING",
+                                "False").lower() in ('true', '1', 't')
 
     DB_URL: str = environ.get(
         "DB_URL", "oracle://{user}:{password}@{sid}".format(
