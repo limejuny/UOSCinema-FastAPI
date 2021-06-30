@@ -1,5 +1,4 @@
 import os
-import cx_Oracle
 import json
 
 from dataclasses import dataclass
@@ -30,12 +29,10 @@ class Config:
                                 "False").lower() in ('true', '1', 't')
 
     DB_URL: str = environ.get(
-        "DB_URL", "oracle://{user}:{password}@{sid}".format(
+        "DB_URL", "oracle://{user}:{password}@{dsn}".format(
             user=get_secret('DB_USER'),
             password=get_secret('DB_PASSWORD'),
-            sid=cx_Oracle.makedsn(get_secret('DB_HOST'),
-                                  get_secret('DB_PORT'),
-                                  sid=get_secret('DB_SID'))))
+            dsn=get_secret('DB_SERVICE')))
 
 
 @dataclass
